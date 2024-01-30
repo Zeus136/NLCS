@@ -1,4 +1,5 @@
 #them thu vien pygame
+import math
 import pygame
 # truy cap toi toa do chinh
 from pygame.locals import *
@@ -30,19 +31,21 @@ scroll_speed = 4
 
 
 #khoi tao background
-bg =  pygame.image.load('IMG/background.png')
+bg =  pygame.image.load('IMG/background.png').convert()
 bg_width, bg_height = bg.get_size()
 scale_bg = pygame.transform.scale(bg, (bg_width*2, bg_height*2))
 ground = pygame.image.load('IMG/ground.png')
+tiles = math.ceil(500/bg_width) + 1
 #Cac ham chinh trong game
 run = True
 while run: 
   clock.tick(fps)
   #ve background game
-  win.blit(scale_bg, (ground_scroll,0))
+  for i in range(0,tiles):
+    win.blit(scale_bg, (i*bg_width+ground_scroll,0))
   win.blit(ground, (ground_scroll, bg_height*1.9))
   ground_scroll-= scroll_speed
-  if abs(ground_scroll) > 250 :
+  if abs(ground_scroll) > bg_width :
     ground_scroll = 0
   pygame.time.delay(50) #thoi gian phan hoi
   #bat su kien nguoi
