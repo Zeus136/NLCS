@@ -20,17 +20,30 @@ weight = 40  #chieu rong cua vat the
 vel = 5      #bien luu do dich chuyen
 jump = False #luu thong tin cua mot su kien
 jump_count = 10 
+fps = 60
+clock = pygame.time.Clock()
+
+#khoi tao cac bien tro choi
+ground_scroll = 0
+pipe_gap = 150
+scroll_speed = 4
+
+
 #khoi tao background
 bg =  pygame.image.load('IMG/background.png')
 bg_width, bg_height = bg.get_size()
 scale_bg = pygame.transform.scale(bg, (bg_width*2, bg_height*2))
-floor = pygame.image.load('IMG/ground.png')
+ground = pygame.image.load('IMG/ground.png')
 #Cac ham chinh trong game
 run = True
 while run: 
+  clock.tick(fps)
   #ve background game
-  win.blit(scale_bg, (0,0))
-  win.blit(floor, (0, bg_height*2))
+  win.blit(scale_bg, (ground_scroll,0))
+  win.blit(ground, (ground_scroll, bg_height*1.9))
+  ground_scroll-= scroll_speed
+  if abs(ground_scroll) > 250 :
+    ground_scroll = 0
   pygame.time.delay(50) #thoi gian phan hoi
   #bat su kien nguoi
   for event in pygame.event.get(): 
